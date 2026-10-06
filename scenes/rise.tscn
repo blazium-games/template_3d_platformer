@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/rise_grant.gd" id="1_grant"]
+
+[sub_resource type="Environment" id="R1"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_energy = 0.55
+ambient_light_color = Color(0.62, 0.66, 0.72, 1)
+
+[sub_resource type="BoxMesh" id="R2"]
+size = Vector3(10, 0.2, 10)
+[sub_resource type="BoxShape3D" id="R3"]
+size = Vector3(10, 0.2, 10)
+[sub_resource type="BoxMesh" id="R4"]
+size = Vector3(1, 1, 1)
+
+[node name="Follow" type="Node3D"]
+script = ExtResource("1_grant")
+[node name="SunLamp" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-48, 32, 0)
+[node name="SkyFill" type="WorldEnvironment" parent="."]
+environment = SubResource("R1")
+[node name="RigEye" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
+current = true
+[node name="Deck" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+[node name="DeckMesh" type="MeshInstance3D" parent="Deck"]
+mesh = SubResource("R2")
+[node name="DeckHit" type="CollisionShape3D" parent="Deck"]
+shape = SubResource("R3")
+[node name="HighStep" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -2)
+mesh = SubResource("R4")
